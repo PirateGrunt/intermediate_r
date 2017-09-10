@@ -1,0 +1,35 @@
+---
+title: git
+---
+
+# What is it?
+
+## What is git?
+
+* Created by Linus Torvalds and others to support development of Linux
+* Tracks changes that you make to files
+* 
+
+## Why use it?
+
+
+
+## How do I use it?
+
+```
+git add
+git commit -m "A message"
+git push [remote] [branch]
+```
+
+# Exercise
+
+##
+
+* Stage everything in the R folder and commit
+* Now, stage everything in the man directory and commit
+* Look at the log of the commit history
+* Stage and commit everything else
+* If you've created an online account, set the remote repository and push your work to the cloud
+* Make some changes to a file and then commit those changes
+* Use the checkout command to recover an older copy of that file

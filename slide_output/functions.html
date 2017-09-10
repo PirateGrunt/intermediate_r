@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Brian A. Fannin" />
+  <title>Functions</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="functions_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="functions_files/reveal.js-3.3.0.1/css/theme/solarized.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="css/revealOpts.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Functions</h1>
+    <h2 class="author">Brian A. Fannin</h2>
+</section>
+
+<section><section id="yeah-functions" class="titleslide slide level1"><h1>Yeah, functions</h1></section><section id="why-is-this-amazing" class="slide level2">
+<h1>Why is this amazing?</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">some_var &lt;-<span class="st"> </span><span class="kw">sqrt</span>(pi) +<span class="st"> </span><span class="dv">5</span>
+some_function &lt;-<span class="st"> </span>function(x) {
+  <span class="kw">sqrt</span>(x) +<span class="st"> </span><span class="dv">5</span>
+}
+<span class="kw">some_function</span>(pi)</code></pre></div>
+</section><section id="heres-whats-amazing" class="slide level2">
+<h1>Here’s what’s amazing</h1>
+<ol type="1">
+<li>Functions are <strong>objects</strong></li>
+<li>Functions can return any value</li>
+<li>1 and 2 mean that functions can return other functions</li>
+<li>Functions are (usually) <strong>vectorized</strong></li>
+<li>Functions may be altered after they’re created</li>
+</ol>
+</section></section>
+<section><section id="what-is-a-function-made-of" class="titleslide slide level1"><h1>What is a function made of?</h1></section><section id="a-simple-function" class="slide level2">
+<h1>A simple function</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">layer &lt;-<span class="st"> </span>function(loss, attachment, limit, share){
+  <span class="kw">pmin</span>(limit, <span class="kw">pmax</span>(<span class="dv">0</span>, loss -<span class="st"> </span>attachment))
+}</code></pre></div>
+</section><section id="the-elements-of-a-function" class="slide level2">
+<h1>The elements of a function</h1>
+<ol type="1">
+<li>arguments</li>
+<li>body</li>
+<li>environment</li>
+</ol>
+</section></section>
+<section><section id="parameters" class="titleslide slide level1"><h1>Parameters</h1></section><section id="parameters-1" class="slide level2">
+<h1>Parameters</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">formals</span>(layer)
+## $loss
+## 
+## 
+## $attachment
+## 
+## 
+## $limit
+## 
+## 
+## $share</code></pre></div>
+<p>Note that it <em>doesn’t</em> tell you what data types they are. R is not strongly typed.</p>
+</section><section id="matching-arguments" class="slide level2">
+<h1>Matching arguments</h1>
+<ol type="1">
+<li>Fully named arguments</li>
+<li>Partial matching</li>
+<li>Position</li>
+</ol>
+</section><section id="matching-arguments-1" class="slide level2">
+<h1>Matching arguments</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myFunc &lt;-<span class="st"> </span>function(mojo, monkey, banana){
+  <span class="kw">print</span>(<span class="kw">match.call</span>())
+}
+
+<span class="kw">myFunc</span>(<span class="dt">mojo =</span> <span class="dv">1</span>, <span class="dt">mo =</span> <span class="dv">2</span>, <span class="dv">3</span>)
+## myFunc(mojo = 1, monkey = 2, banana = 3)
+<span class="kw">myFunc</span>(<span class="dt">mo =</span> <span class="dv">2</span>, <span class="dt">mojo =</span> <span class="dv">1</span>, <span class="dv">3</span>)
+## myFunc(mojo = 1, monkey = 2, banana = 3)
+<span class="kw">myFunc</span>(<span class="dt">mo =</span> <span class="dv">1</span>, <span class="dt">mo =</span> <span class="dv">2</span>, <span class="dv">3</span>)
+## Error in myFunc(mo = 1, mo = 2, 3): formal argument &quot;mojo&quot; matched by multiple actual arguments
+<span class="kw">myFunc</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+## myFunc(mojo = 1, monkey = 2, banana = 3)</code></pre></div>
+</section><section id="default-values" class="slide level2">
+<h1>Default values</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myFunc &lt;-<span class="st"> </span>function(a, <span class="dt">b =</span> <span class="dv">15</span>){
+  a +<span class="st"> </span>b
+}
+<span class="kw">myFunc</span>(<span class="dv">3</span>)
+## [1] 18</code></pre></div>
+<p>I didn’t supply a value for the <code>b</code> argument, so we just used the default.</p>
+</section><section id="check-inputs" class="slide level2">
+<h1>Check inputs</h1>
+<p>You can use the <code>missing()</code> function for this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myFunc &lt;-<span class="st"> </span>function(mojo, monkey, banana){
+  if (<span class="kw">missing</span>(banana)) {
+    <span class="kw">warning</span>(<span class="st">&quot;I can&#39;t think without bananas&quot;</span>)
+    banana =<span class="st"> </span>monkey +<span class="st"> </span><span class="dv">5</span>
+  }
+}
+<span class="kw">myFunc</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+<span class="kw">myFunc</span>(<span class="dv">1</span>, <span class="dv">2</span>)
+## Warning in myFunc(1, 2): I can&#39;t think without bananas</code></pre></div>
+</section><section id="aside" class="slide level2">
+<h1>Aside</h1>
+<ul>
+<li><code>stop()</code>: This is an error. The program can’t go on.</li>
+<li><code>warning()</code> - This tells the user that something happened and they might not like it, but it’s not a critical issue.</li>
+<li><code>message()</code> - Just sayin’ something you might want to hear.</li>
+</ul>
+</section><section id="missing-and-defaults" class="slide level2">
+<h1>Missing and defaults</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myFunc &lt;-<span class="st"> </span>function(mojo, monkey, <span class="dt">banana =</span> <span class="dv">3</span>){
+  if (<span class="kw">missing</span>(banana)) {
+    <span class="kw">warning</span>(<span class="st">&quot;I can&#39;t think without bananas&quot;</span>)
+    <span class="kw">print</span>(banana)
+  }
+}
+<span class="kw">myFunc</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+<span class="kw">myFunc</span>(<span class="dv">1</span>, <span class="dv">2</span>)
+## Warning in myFunc(1, 2): I can&#39;t think without bananas
+## [1] 3</code></pre></div>
+</section><section id="restrict-inputs-to-set-choice" class="slide level2">
+<h1>Restrict inputs to set choice</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myFunc &lt;-<span class="st"> </span>function(x, <span class="dt">dist =</span> <span class="kw">c</span>(<span class="st">&quot;lognormal&quot;</span>, <span class="st">&quot;gamma&quot;</span>)){
+  dist =<span class="st"> </span><span class="kw">match.arg</span>(dist)
+  <span class="kw">print</span>(dist)
+}
+<span class="kw">myFunc</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="st">&quot;lo&quot;</span>)
+## [1] &quot;lognormal&quot;
+<span class="kw">myFunc</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="st">&quot;jo&quot;</span>)
+## Error in match.arg(dist): &#39;arg&#39; should be one of &quot;lognormal&quot;, &quot;gamma&quot;
+
+myOtherFunc &lt;-<span class="st"> </span>function(x, <span class="dt">dist =</span> <span class="kw">c</span>(<span class="st">&quot;lognormal&quot;</span>, <span class="st">&quot;gamma&quot;</span>)){
+  <span class="kw">print</span>(dist)
+}
+<span class="kw">myOtherFunc</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="st">&quot;lo&quot;</span>)
+## [1] &quot;lo&quot;
+<span class="kw">myOtherFunc</span>(<span class="dv">1</span>:<span class="dv">10</span>, <span class="st">&quot;jo&quot;</span>)
+## [1] &quot;jo&quot;</code></pre></div>
+</section><section id="defaults-and-missing-arguments" class="slide level2">
+<h1>Defaults and missing arguments</h1>
+<ul>
+<li>If you <em>must</em> know what the user intends, <em>or</em> if the default requires some logic, don’t add a default.</li>
+<li>If you’re fine with common default parameters (i.e. the base of the log function is e or 10), add a default.</li>
+<li>Don’t add a default and check for a missing value. It’s confusing and unnecessary.</li>
+</ul>
+</section><section id="triple-dot" class="slide level2">
+<h1>Triple dot</h1>
+<p><code>...</code> is used to pass unspecified arguments to other functions. Typically used if your function sits between the user and some other function like <code>plot</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dfData &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">PolicyYear =</span> <span class="dv">2001</span>:<span class="dv">2010</span>, <span class="dt">Premium =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>))
+myPlotFunc &lt;-<span class="st"> </span>function(dfData, ...){
+  <span class="kw">plot</span>(dfData$PolicyYear, dfData$Premium, ...)
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">myPlotFunc</span>(dfData, <span class="dt">pch=</span><span class="dv">18</span>)
+<span class="kw">myPlotFunc</span>(dfData, <span class="dt">pch=</span><span class="dv">23</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">formals</span>(myPlotFunc)
+## $dfData
+## 
+## 
+## $...</code></pre></div>
+</section></section>
+<section><section id="return-value" class="titleslide slide level1"><h1>Return value</h1></section><section id="what-does-a-function-return" class="slide level2">
+<h1>What does a function return?</h1>
+<p>Anything.</p>
+</section><section id="return" class="slide level2">
+<h1>return()</h1>
+<ul>
+<li><code>return()</code> isn’t required.</li>
+<li>A function will always return the last evaluated expression.</li>
+<li><code>return()</code> is often used for <em>abnormal</em> returns</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myFunc &lt;-<span class="st"> </span>function(x){
+  if (<span class="kw">is.na</span>(x)) <span class="kw">return</span>(<span class="st">&quot;Value missing&quot;</span>)
+  
+  <span class="kw">sum</span>(x)
+}</code></pre></div>
+</section><section id="create-a-list-of-functions." class="slide level2">
+<h1>Create a list of functions.</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lstMeans &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">arithmetic =</span> mean, <span class="dt">median =</span> median)
+nums &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
+lstMeans[[<span class="st">&#39;arithmetic&#39;</span>]](nums)
+## [1] 5.5
+which_mean &lt;-<span class="st"> &#39;median&#39;</span>
+lstMeans[[which_mean]](nums)
+## [1] 5.5
+<span class="kw">lapply</span>(lstMeans, function(x) <span class="kw">x</span>(nums))
+## $arithmetic
+## [1] 5.5
+## 
+## $median
+## [1] 5.5</code></pre></div>
+</section><section id="whats-a-closure" class="slide level2">
+<h1>What’s a closure?</h1>
+<p>A closure is a function which contains data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_rnorm &lt;-<span class="st"> </span>function(mean, sd){
+  function(N){
+    <span class="kw">rnorm</span>(N, mean, sd)
+  }
+}
+an_rnorm &lt;-<span class="st"> </span><span class="kw">my_rnorm</span>(<span class="dt">mean =</span> <span class="dv">10</span>, <span class="dt">sd =</span> <span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1234</span>)
+my_norms &lt;-<span class="st"> </span><span class="kw">an_rnorm</span>(<span class="dv">100</span>)
+<span class="kw">set.seed</span>(<span class="dv">1234</span>)
+base_norms &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>, <span class="dv">10</span>, <span class="dv">3</span>)
+<span class="kw">identical</span>(my_norms, base_norms)
+## [1] TRUE</code></pre></div>
+</section><section id="where-did-the-data-go" class="slide level2">
+<h1>Where did the data go?</h1>
+<p>It’s in the enclosing environment of the function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">an_rnorm &lt;-<span class="st"> </span><span class="kw">my_rnorm</span>(<span class="dt">mean =</span> <span class="dv">10</span>, <span class="dt">sd =</span> <span class="dv">3</span>)
+another_rnorm &lt;-<span class="st"> </span><span class="kw">my_rnorm</span>(<span class="dt">mean =</span> -<span class="dv">30</span>, <span class="dt">sd =</span> <span class="dv">100</span>)
+<span class="kw">ls</span>(<span class="kw">environment</span>(an_rnorm))
+## [1] &quot;mean&quot; &quot;sd&quot;
+
+func_data &lt;-<span class="st"> </span><span class="kw">ls</span>(<span class="kw">environment</span>(an_rnorm))
+<span class="kw">lapply</span>(func_data, get, <span class="kw">environment</span>(an_rnorm))
+## [[1]]
+## [1] 10
+## 
+## [[2]]
+## [1] 3
+
+<span class="kw">as.list</span>(<span class="kw">environment</span>(an_rnorm))
+## $mean
+## [1] 10
+## 
+## $sd
+## [1] 3
+<span class="kw">as.list</span>(<span class="kw">environment</span>(another_rnorm))
+## $mean
+## [1] -30
+## 
+## $sd
+## [1] 100</code></pre></div>
+</section><section id="exercise" class="slide level2">
+<h1>Exercise</h1>
+<ul>
+<li><span class="math inline">\(\mu=log(E[X])-\sigma^2\)</span></li>
+<li><span class="math inline">\(\sigma^2=ln(1+cv^2)\)</span></li>
+</ul>
+<p>Create a function called LognormalParams, which will translate the mean and either the CV or standard deviation or variance into parameters for the lognormal distribution. Test it using the following statements:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">LognormalParams</span>(<span class="fl">10e3</span>, <span class="fl">3.0</span>)
+<span class="kw">LognormalParams</span>(<span class="kw">c</span>(<span class="fl">10e3</span>, <span class="fl">20e3</span>), <span class="fl">3.0</span>)
+<span class="kw">LognormalParams</span>(<span class="kw">c</span>(<span class="fl">10e3</span>, <span class="fl">20e3</span>), <span class="st">&quot;three&quot;</span>)
+<span class="kw">LognormalParams</span>(<span class="fl">10e3</span>)
+<span class="kw">LognormalParams</span>(<span class="dt">CV =</span> <span class="dv">4</span>, <span class="fl">10e3</span>)</code></pre></div>
+</section><section id="another-exercise" class="slide level2">
+<h1>Another exercise</h1>
+</section><section id="solution" class="slide level2">
+<h1>Solution</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LognormalParams &lt;-<span class="st"> </span>function(mean, CV){
+  
+}</code></pre></div>
+</section></section>
+<section><section id="if-we-have-time" class="titleslide slide level1"><h1>If we have time</h1></section><section id="replacement-functions" class="slide level2">
+<h1>Replacement functions</h1>
+<p>(These examples are virtually identical to the ones in Hadley’s “Advanced R”)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">mojo&lt;-</span><span class="st">`</span> &lt;-<span class="st"> </span>function(x, value){
+  x &lt;-<span class="st"> </span>x +<span class="st"> </span>value
+} 
+gonzo &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
+gonzo
+##  [1]  1  2  3  4  5  6  7  8  9 10
+<span class="kw">mojo</span>(gonzo) &lt;-<span class="st"> </span><span class="dv">5</span>
+gonzo
+##  [1]  6  7  8  9 10 11 12 13 14 15</code></pre></div>
+</section><section id="replacement-functions-2" class="slide level2">
+<h1>Replacement functions (2)</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">mojo&lt;-</span><span class="st">`</span> &lt;-<span class="st"> </span>function(x, position, value){
+  x[position] &lt;-<span class="st"> </span>x[position] +<span class="st"> </span>value
+  x
+} 
+gonzo &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">10</span>)
+gonzo
+##  [1] 1 1 1 1 1 1 1 1 1 1
+<span class="kw">mojo</span>(gonzo, <span class="dv">2</span>) &lt;-<span class="st"> </span><span class="dv">5</span>
+gonzo
+##  [1] 1 6 1 1 1 1 1 1 1 1
+<span class="kw">mojo</span>(gonzo, <span class="dv">2</span>:<span class="dv">3</span>) &lt;-<span class="st"> </span><span class="dv">5</span>
+gonzo
+##  [1]  1 11  6  1  1  1  1  1  1  1</code></pre></div>
+</section><section id="infix-functions" class="slide level2">
+<h1>Infix functions</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">`</span><span class="dt">%l^%</span><span class="st">`</span> &lt;-<span class="st"> </span>function(a, b){
+  <span class="kw">log</span>(<span class="kw">sqrt</span>(a +b))
+}
+<span class="dv">5</span> %l^%<span class="st"> </span><span class="dv">3</span>
+## [1] 1.039721
+<span class="kw">log</span>(<span class="kw">sqrt</span>(<span class="dv">5+3</span>))
+## [1] 1.039721</code></pre></div>
+</section></section>
+<section><section id="nse" class="titleslide slide level1"><h1>NSE</h1></section><section id="nse-1" class="slide level2">
+<h1>NSE</h1>
+<p>I really don’t want to talk about this</p>
+</section><section id="section" class="slide level2">
+<h1></h1>
+<ol type="1">
+<li><code>parse()</code> will convert text into an expression.</li>
+<li><code>eval()</code> will evaluate an expression.</li>
+<li><code>deparse()</code> will convert an expression back into text (but not really).</li>
+</ol>
+</section><section id="section-1" class="slide level2">
+<h1></h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_str &lt;-<span class="st"> &quot;1 + 1&quot;</span>
+my_expr &lt;-<span class="st"> </span><span class="kw">parse</span>(<span class="dt">text =</span> my_str)
+my_expr
+## expression(1 + 1)
+<span class="kw">class</span>(my_expr)
+## [1] &quot;expression&quot;</code></pre></div>
+</section><section id="deparse-is-crazy" class="slide level2">
+<h1>Deparse is crazy</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_other_str &lt;-<span class="st"> </span><span class="kw">deparse</span>(my_expr, <span class="dt">width =</span> <span class="dv">500</span>)
+my_other_str
+## [1] &quot;expression(1 + 1)&quot;
+
+my_other_str &lt;-<span class="st"> </span><span class="kw">as.character</span>(my_expr)
+my_other_str
+## [1] &quot;1 + 1&quot;
+<span class="kw">as.character</span>(<span class="kw">attr</span>(my_expr, <span class="st">&quot;wholeSrcref&quot;</span>))
+## character(0)
+my_other_str
+## [1] &quot;1 + 1&quot;</code></pre></div>
+</section><section id="eval" class="slide level2">
+<h1>eval</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> my_expr))
+## [1] 2
+my_expr &lt;-<span class="st"> &quot;1 + 2&quot;</span>
+<span class="kw">eval</span>(<span class="kw">parse</span>(<span class="dt">text =</span> my_expr))
+## [1] 3</code></pre></div>
+</section></section>
+    </div>
+  </div>
+
+  <script src="functions_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="functions_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'functions_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+          { src: 'functions_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

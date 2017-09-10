@@ -1,0 +1,115 @@
+---
+title: "Shiny"
+author: "Brian A. Fannin"
+output:
+  revealjs::revealjs_presentation:
+    center: no
+    css: ./css/revealOpts.css
+    reveal_plugins:
+    - notes
+    - zoom
+    self_contained: no
+    theme: solarized
+    transition: slide
+---
+
+```{r echo=FALSE}
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(knitr))
+knitr::opts_chunk$set(
+    warning=FALSE
+  , error=FALSE
+  , echo=FALSE
+  , message=FALSE
+  , fig.height = 4.5
+  , fig.pos="t"
+  , collapse = TRUE
+)
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+```
+
+# What
+
+## What is shiny?
+
+* An R interface to java script libraries
+* Allows for user interfaces
+* Support complex interactivity
+
+## Basic structure
+
+Two parts:
+
+1. ui - contains user interface elements
+2. server - how does the application respond to changes in the ui?
+
+It's also possible to define an app using the `shinyApp()` function, but we won't do that here.
+
+## Let's begin
+
+Create a new shiny project in RStudio.
+
+# ui
+
+## Just a collection of ui items and some structure
+
+* Select input
+* Date input
+* Text input
+* Numeric sliders
+* Radio buttons
+
+## Layout and themes
+
+This can get crazy. Spend a bit of time learning about Bootstrap and responsive web design. For now, just focus on elements.
+
+## Exercise
+
+* Add a radio button to select between the gamma and lognormal distributions
+* Add a slider for ranges of CV and Mean values
+
+# server
+
+## 3 basic elements
+
+1. A render function
+2. A reactive value
+3. An observer
+
+## Exercise
+
+* Add some plot output to the server using the renderPlot function.
+
+## Reactivity
+
+Enter the following line before starting your app:
+
+```{r}
+options(shiny.reactlog=TRUE) 
+```
+
+Press Ctrl+F3 when your app starts running. Cool!
+
+## Reactivity vs. Observables
+
+* A reactive expression is meant to - wait for it - react to its inputs having changed. When that happens, it will recalculate and return a value
+* An observable is meant to _take action_ when it notices something happening. It does _not_ return a value.
+
+A reactive is a __noun__
+An observable is a __verb__
+
+## Validation
+
+```{r eval=FALSE}
+my_reactive <- reactive({
+  validate(
+        need(logged_in(), "You're not logged in")
+      , need(length(df_my_data()) != 0, "No data was found.")
+    )
+  # Now do something
+})
+```
+
+## Exercise
+
+* Add validation to ensure that the parameters exist before you try to plot.

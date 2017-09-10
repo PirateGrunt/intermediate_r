@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: \"Shiny\"\nauthor: \"Brian A. Fannin\"\noutput:\n  revealjs::revealjs_presentation:\n    center: no\n    css: ./css/revealOpts.css\n    reveal_plugins:\n    - notes\n    - zoom\n    self_contained: no\n    theme: solarized\n    transition: slide\n---\n\n```{r echo=FALSE}\nsuppressPackageStartupMessages(library(dplyr))\nsuppressPackageStartupMessages(library(knitr))\nknitr::opts_chunk$set(\n    warning=FALSE\n  , error=FALSE\n  , echo=FALSE\n  , message=FALSE\n  , fig.height = 4.5\n  , fig.pos=\"t\"\n  , collapse = TRUE\n)\nknitr::opts_knit$set(root.dir = normalizePath('../'))\n```\n\n# What\n\n## What is shiny?\n\n* An R interface to java script libraries\n* Allows for user interfaces\n* Support complex interactivity\n\n## Basic structure\n\nTwo parts:\n\n1. ui - contains user interface elements\n2. server - how does the application respond to changes in the ui?\n\nIt's also possible to define an app using the `shinyApp()` function, but we won't do that here.\n\n## Let's begin\n\nCreate a new shiny project in RStudio.\n\n# ui\n\n## Just a collection of ui items and some structure\n\n* Select input\n* Date input\n* Text input\n* Numeric sliders\n* Radio buttons\n\n## Layout and themes\n\nThis can get crazy. Spend a bit of time learning about Bootstrap and responsive web design. For now, just focus on elements.\n\n## Exercise\n\n* Add a radio button to select between the gamma and lognormal distributions\n* Add a slider for ranges of CV and Mean values\n\n# server\n\n## 3 basic elements\n\n1. A render function\n2. A reactive value\n3. An observer\n\n## Exercise\n\n* Add some plot output to the server using the renderPlot function.\n\n## Reactivity\n\nEnter the following line before starting your app:\n\n```{r}\noptions(shiny.reactlog=TRUE) \n```\n\nPress Ctrl+F3 when your app starts running. Cool!\n\n## Reactivity vs. Observables\n\n* A reactive expression is meant to - wait for it - react to its inputs having changed. When that happens, it will recalculate and return a value\n* An observable is meant to _take action_ when it notices something happening. It does _not_ return a value.\n\nA reactive is a __noun__\nAn observable is a __verb__\n\n## Validation\n\n```{r eval=FALSE}\nmy_reactive <- reactive({\n  validate(\n        need(logged_in(), \"You're not logged in\")\n      , need(length(df_my_data()) != 0, \"No data was found.\")\n    )\n  # Now do something\n})\n```\n\n## Exercise\n\n* Add validation to ensure that the parameters exist before you try to plot.\n",
+    "created" : 1504793671558.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "712616306",
+    "id" : "2C66D8D4",
+    "lastKnownWriteTime" : 1504928652,
+    "last_content_update" : 1504928652651,
+    "path" : "~/projects/presentations/intermediate_r/slide_input/shiny.Rmd",
+    "project_path" : "slide_input/shiny.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

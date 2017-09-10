@@ -1,0 +1,200 @@
+---
+title: "Packages - Part 2"
+author: "Brian A. Fannin"
+output:
+  revealjs::revealjs_presentation:
+    center: no
+    css: ./css/revealOpts.css
+    reveal_plugins:
+    - notes
+    - zoom
+    self_contained: no
+    theme: solarized
+    transition: slide
+---
+
+```{r echo=FALSE}
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(knitr))
+knitr::opts_chunk$set(
+    warning=FALSE
+  , error=FALSE
+  , echo=FALSE
+  , message=FALSE
+  , fig.height = 4.5
+  , fig.pos="t"
+  , collapse = TRUE
+)
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+```
+
+# Workflow
+
+## Workflow
+
+1. Create a new project in RStudio
+2. Edit DESCRIPTION file
+4. Set build parameters
+2. Enter a function
+3. Document with roxygen
+4. Add data?
+5. Create tests
+6. Build
+7. Repeat steps 2-8
+
+## Quick tour of what RStudio created
+
+## License
+
+Your package needs one, especially if the software is proprietary.
+
+## Dependencies
+
+One of two places
+
+1. DESCRIPTION file
+2. NAMESPACE
+
+## Dependencies in DESCRIPTION
+
+* depends - The package will be placed on the search path
+* imports - The package will be available, but not on the search path
+* suggests - The package does not need this to run, but some functionality may be enhanced
+* improves - This is rare. This means that the package enhances functionality in another package
+
+Use depends sparingly.
+
+## NAMESPACE
+
+We'll get to that in a bit
+
+## Exercise
+
+Edit the DESCRIPTION file to add a suggestion for `ggplot2` (and possibly MASS) and build the package. If you haven't changed any of the defaults, the build should take about 3 seconds and produce no errors.
+
+# Functions
+
+## Writing functions
+
+This is the easy bit. Often, you're just taking code from a script and dumping it into a package. It needs clean up, but writing functions isn't super hard.
+
+## Exercise
+
+Create a function in the package which will translate mean and CV into lognormal parameters.
+
+While you're at it, create a function which will translate mean and CV into gamma parameters.
+
+$\alpha=1/CV^2$
+
+$\beta=1 / (mean * CV^2)$
+
+# Documentation
+
+## roxygen
+
+Documentation is the tricky - but super essential! - part. Happily, roxygen will take care of most of this.
+
+## roxygen
+
+```{r}
+tbl_roxygen <- tribble(
+  ~Directive, ~`What It Does`
+  , "@title", "Typically the name of your function"
+  , "@description", "Short description of the function's purpose"
+  , '@param', "One entry for each argument to the function"
+  , '@details', "Longer description of the function"
+  , '@return', "What value does it return?"
+  , '@importFrom', "Does the function need functions from another package?"
+  , '@include', "Does this function depend on other files in your package?"
+  , '@export', "Should this function be exported?"
+  , '@examples', "Examples of how to use your function"
+
+)
+tbl_roxygen %>% kable()
+```
+
+Poorly documented code will not be accepted on CRAN!
+
+## Namespace and collation
+
+@importFrom will add entries to the NAMESPACE file.
+@include will ensure that the collation sequence is accurate.
+
+What's collation? When building the package, things happen sequentially. In your package, if a function in in file A depends on another function in a file B, file B must be processed first. Otherwise, it won't be understood when the package compiler processes file A.
+
+## Exercise
+
+Document your functions and rebuild your package. Gaze in awe at the entries in the help file.
+
+# Testing
+
+## Testing is much, much more important than the code you write
+
+> A bug is a test that you failed to write
+
+##
+
+```{r eval=FALSE, echo=TRUE}
+devtools::use_testthat()
+devtools::use_test("my test")
+```
+
+## Great expectations
+
+```{r eval=FALSE}
+context("lognormal")
+
+test_that("Check inputs", {
+  expect_error(LognormalParams())
+  expect_error(LognormalParams(), "No mean was specified")
+  expect_error(LognormalParams(3), "No CV was specified")
+
+  # and so on
+  
+  expect_silent(LognormalParams(5, 4))
+
+})
+```
+
+## Exercise
+
+Write a test suite for your function(s). Be sure to give your functions inputs that you __know__ will cause an error.
+
+## One more item
+
+To be sure that we're cool, we're going to add one more function.
+
+Add a function which will accept a vector of sample data and value(s) for a range around the mean and/or CV and whatever parameters you think are appropriate. The function will return data which indicates the likelihood function at combinations of mean and CV.
+
+For example:
+
+```{r eval=FALSE}
+my_likelihood <- CalcLikelihood(somedata, mean_range = c(50e3, 150e3), CV_range = c(0.3, 1.8))
+```
+
+# If we have time
+
+## Data in a package
+
+## Why data?
+
+* Data is useful to illustrate functionality
+    * ChainLadder has several triangles
+* Data may be the reason for the package
+* Data could be used for testing
+
+## Three ways to get data into a package
+
+1. In the data folder
+2. In the system files
+3. Within the package environment
+
+## In the data folder
+
+```
+devtools::use_data_raw()
+```
+
+## One more exercise
+
+Add some data, which  may be used to illustrate the likelihood function.

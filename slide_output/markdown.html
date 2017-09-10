@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Brian A. Fannin" />
+  <title>Markdown</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="markdown_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="markdown_files/reveal.js-3.3.0.1/css/theme/solarized.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="css/revealOpts.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <script src="markdown_files/htmlwidgets-0.9/htmlwidgets.js"></script>
+    <script src="markdown_files/jquery-1.12.4/jquery.min.js"></script>
+    <script src="markdown_files/datatables-binding-0.2/datatables.js"></script>
+    <link href="markdown_files/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="markdown_files/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="markdown_files/dt-core-1.10.12/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Markdown</h1>
+    <h2 class="author">Brian A. Fannin</h2>
+</section>
+
+<section><section id="overview" class="titleslide slide level1"><h1>Overview</h1></section><section id="what-can-i-do" class="slide level2">
+<h1>What can I do?</h1>
+<ul>
+<li>Write a book - <a href="http://adv-r.had.co.nz/" class="uri">http://adv-r.had.co.nz/</a></li>
+<li>Write a blog - <a href="PirateGrunt.com" class="uri">PirateGrunt.com</a></li>
+<li>Create a website - <a href="http://rmarkdown.rstudio.com/" class="uri">http://rmarkdown.rstudio.com/</a></li>
+<li>Add a vignette to a package - <a href="http://yihui.name/knitr/demo/vignette/" class="uri">http://yihui.name/knitr/demo/vignette/</a></li>
+<li>Publish research - <a href="https://github.com/rstudio/rticles" class="uri">https://github.com/rstudio/rticles</a></li>
+<li>Automate business intelligence</li>
+<li>Preserve your sanity</li>
+</ul>
+</section><section id="how-can-i-do-this" class="slide level2">
+<h1>How can I do this?</h1>
+<p>Literate programming</p>
+<p>Incorporate text (including markup) with computer instructions and the output from computer instructions.</p>
+<blockquote>
+<p>“The practitioner of literate programming can be regarded as an essayist, whose main concern is with exposition and excellence of style.”<br />
+- Donald Knuth</p>
+</blockquote>
+<p>Within the R world, this began with Sweave.</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Literate_programming" class="uri">https://en.wikipedia.org/wiki/Literate_programming</a></li>
+<li><a href="http://www.literateprogramming.com/knuthweb.pdf" class="uri">http://www.literateprogramming.com/knuthweb.pdf</a></li>
+</ul>
+</section><section id="sweave" class="slide level2">
+<h1>Sweave</h1>
+<ul>
+<li>Incorporates or “weaves” R commands into a LateX document.</li>
+<li>Pretty old (first appeared in 2002)</li>
+<li>Only supports R as a programming language</li>
+<li>Only supports LateX for markup</li>
+<li><a href="https://www.statistik.lmu.de/~leisch/Sweave/" class="uri">https://www.statistik.lmu.de/~leisch/Sweave/</a></li>
+<li>.Rnw -&gt; R “noweb” <a href="http://www.cs.tufts.edu/~nr/noweb/" class="uri">http://www.cs.tufts.edu/~nr/noweb/</a></li>
+</ul>
+</section><section id="sweave---how-does-it-work" class="slide level2">
+<h1>Sweave - how does it work?</h1>
+<ul>
+<li>Write a markup document, just as you always would</li>
+<li>Include R code in “chunks”</li>
+</ul>
+<p>For most people (or at least Yihui Xie), Sweave wasn’t enough. More output formats, more input languages, hooks, etc.</p>
+</section></section>
+<section><section id="enter-knitr" class="titleslide slide level1"><h1>Enter knitr</h1></section><section id="knitr" class="slide level2">
+<h1>knitr</h1>
+<ul>
+<li>Same basic concept as Sweave</li>
+<li>Multi-language engine</li>
+<li>Multiple processing options
+<ul>
+<li>knitr</li>
+<li>Rhtml-</li>
+<li>brew</li>
+<li>Others (Rrst, Rtex, Rasciidoc)</li>
+</ul></li>
+<li><a href="http://yihui.name/knitr/" class="uri">http://yihui.name/knitr/</a></li>
+<li>cheat sheet - <a href="https://cran.r-project.org/web/packages/knitr/vignettes/knitr-refcard.pdf" class="uri">https://cran.r-project.org/web/packages/knitr/vignettes/knitr-refcard.pdf</a></li>
+</ul>
+</section><section id="knitr-1" class="slide level2">
+<h1>knitr</h1>
+<p>Code chunks look a little different.</p>
+<ul>
+<li>We must specify the language engine</li>
+<li>Code chunks may use R expressions, i.e. we may conditionally execute</li>
+</ul>
+<!-- https://ramnathv.github.io/posts/verbatim-chunks-knitr/ -->
+<pre><code>```{r echo = TRUE}
+library(ggplot2)
+library(ggplot2movies)
+data(movies)
+m &lt;- ggplot(movies, aes(x = rating)) + geom_density()
+m
+```</code></pre>
+<p><img src="markdown_files/figure-revealjs/unnamed-chunk-3-1.png" width="768" /></p>
+</section><section id="knitr-options" class="slide level2">
+<h1>knitr options</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">opts_knit$<span class="kw">set</span>(<span class="dt">upload.fun =</span> WrapWordpressUpload, <span class="dt">base.url =</span> <span class="ot">NULL</span>)
+
+WrapWordpressUpload =<span class="st"> </span>function(file) {
+  result =<span class="st"> </span>RWordpress::<span class="kw">uploadFile</span>(file)
+  result$url
+}
+
+<span class="kw">options</span>(<span class="dt">WordPressLogin =</span> <span class="kw">c</span>(<span class="dt">PirateGrunt =</span> <span class="st">&quot;myPassword&quot;</span>)
+        , <span class="dt">WordPressURL =</span> <span class="st">&quot;http://PirateGrunt.wordpress.com/xmlrpc.php&quot;</span>)
+
+RWordpress::<span class="kw">knit2wp</span>(<span class="st">&quot;MyCoolPost.Rmd&quot;</span>
+                    , <span class="dt">title =</span> <span class="st">&quot;Catchy title&quot;</span>
+                    , <span class="dt">publish =</span> <span class="ot">FALSE</span>
+                    , <span class="dt">shortcode =</span> <span class="ot">TRUE</span>
+                    , <span class="dt">categories =</span> <span class="kw">c</span>(<span class="st">&quot;R&quot;</span>))</code></pre></div>
+</section><section id="knitr-markdown-r-markdown" class="slide level2">
+<h1>knitr + Markdown = R markdown</h1>
+<ul>
+<li>Unifies multiple output formats by having content written in markdown, rather than a specific markup language</li>
+<li>Once the markdown output is generated use <code>pandoc</code> to render in other markup languages</li>
+<li>Comes for free with RStudio</li>
+</ul>
+</section></section>
+<section><section id="markdown" class="titleslide slide level1"><h1>Markdown</h1></section><section id="markdown-1" class="slide level2">
+<h1>Markdown</h1>
+<blockquote>
+<p>“A Markdown-formatted document should be publishable as-is, as plain text, without looking like it’s been marked up with tags or formatting instructions.” – John Gruber</p>
+</blockquote>
+<ul>
+<li>Very simple syntax</li>
+<li>Human readable</li>
+<li>May be converted into other formats</li>
+<li>Read about the life of <a href="https://en.wikipedia.org/wiki/Aaron_Swartz">Aaron Swartz</a></li>
+<li><a href="http://daringfireball.net/projects/markdown/" class="uri">http://daringfireball.net/projects/markdown/</a></li>
+</ul>
+</section><section id="pandoc" class="slide level2">
+<h1>Pandoc</h1>
+<ul>
+<li>Haskell tool written by John MacFarlane</li>
+<li>Recognizes that most markup languages have common features: level 1-n text, hyperlinks, tables, images</li>
+<li>MS Word uses XML -&gt; that’s another markup language!</li>
+</ul>
+<p><a href="http://pandoc.org/" class="uri">http://pandoc.org/</a></p>
+</section><section class="slide level2">
+
+<p>First we mark down, then we mark up</p>
+<p>Got it? Good.</p>
+<ul>
+<li class="fragment">Also, YAML.</li>
+</ul>
+</section><section id="yaml" class="slide level2">
+<h1>YAML</h1>
+<p>YAML = “<strong>Y</strong>AML <strong>A</strong>in’t <strong>M</strong>arkup <strong>L</strong>anguage”</p>
+<blockquote>
+<p>“What It Is: YAML is a human friendly data serialization standard for all programming languages.”</p>
+</blockquote>
+<pre><code>---
+title: &quot;Fun with R Markdown&quot;
+author: &quot;Brian A. Fannin&quot;
+date: &quot;September 20, 2015&quot;
+output: 
+  slidy_presentation:
+    self_contained: false
+    duration: 45
+---</code></pre>
+<p>Fun fact: JSON is a subset of YAML</p>
+<p><a href="http://yaml.org/" class="uri">http://yaml.org/</a></p>
+</section><section id="r-markdown-from-the-command-line" class="slide level2">
+<h1>R markdown from the command line</h1>
+<pre><code>render(input, output_format = NULL, output_file = NULL, output_dir = NULL,
+       output_options = NULL, intermediates_dir = NULL,
+       runtime = c(&quot;auto&quot;, &quot;static&quot;, &quot;shiny&quot;),
+       clean = TRUE, params = NULL, envir = parent.frame(), 
+       quiet = FALSE, encoding = getOption(&quot;encoding&quot;))</code></pre>
+<pre><code>rmarkdown::render(myFile, output)</code></pre>
+</section><section id="html" class="slide level2">
+<h1>HTML</h1>
+<ul>
+<li>CSS</li>
+<li>Build your own website</li>
+<li>Nothing stopping you from using JavaScript libraries like Bootstrap and D3.</li>
+<li>If you’re targeting HTML, you can use HTML within the R markdown document itself
+<ul>
+<li>If you do, you’ll need to write or copy a fair bit of HTML, css and java script</li>
+</ul></li>
+<li>Blog like a boss</li>
+</ul>
+</section><section id="other-stuff" class="slide level2">
+<h1>Other stuff</h1>
+<ul>
+<li>Tables</li>
+<li>Customized reporting with <code>whisker</code></li>
+<li>Jekyll</li>
+<li>Creating your own templates</li>
+</ul>
+</section><section id="tables" class="slide level2">
+<h1>Tables</h1>
+<ul>
+<li><a href="#/xtable">xtable</a> (<a href="http://xtable.r-forge.r-project.org/" class="uri">http://xtable.r-forge.r-project.org/</a>)</li>
+<li>knitr::kable</li>
+<li><a href="#/pander">pander</a> (<a href="http://rapporter.github.io/pander/" class="uri">http://rapporter.github.io/pander/</a>)</li>
+<li><a href="#/dt">DT</a> (<a href="https://rstudio.github.io/DT/" class="uri">https://rstudio.github.io/DT/</a>)</li>
+</ul>
+</section><section id="table-data" class="slide level2">
+<h1>Table data</h1>
+</section><section id="xtable" class="slide level2">
+<h1>xtable</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(xtable)
+<span class="kw">print</span>(<span class="kw">xtable</span>(Master), <span class="dt">type =</span> <span class="st">&#39;html&#39;</span>)</code></pre></div>
+<!-- html table generated in R 3.4.1 by xtable 1.8-2 package -->
+<!-- Thu Sep  7 15:48:06 2017 -->
+<table border="1">
+<tr>
+<th>
+</th>
+<th>
+playerID
+</th>
+<th>
+birthYear
+</th>
+<th>
+birthMonth
+</th>
+<th>
+birthDay
+</th>
+<th>
+birthCountry
+</th>
+</tr>
+<tr>
+<td align="right">
+1
+</td>
+<td>
+aardsda01
+</td>
+<td align="right">
+1981
+</td>
+<td align="right">
+12
+</td>
+<td align="right">
+27
+</td>
+<td>
+USA
+</td>
+</tr>
+<tr>
+<td align="right">
+2
+</td>
+<td>
+aaronha01
+</td>
+<td align="right">
+1934
+</td>
+<td align="right">
+2
+</td>
+<td align="right">
+5
+</td>
+<td>
+USA
+</td>
+</tr>
+<tr>
+<td align="right">
+3
+</td>
+<td>
+aaronto01
+</td>
+<td align="right">
+1939
+</td>
+<td align="right">
+8
+</td>
+<td align="right">
+5
+</td>
+<td>
+USA
+</td>
+</tr>
+<tr>
+<td align="right">
+4
+</td>
+<td>
+aasedo01
+</td>
+<td align="right">
+1954
+</td>
+<td align="right">
+9
+</td>
+<td align="right">
+8
+</td>
+<td>
+USA
+</td>
+</tr>
+<tr>
+<td align="right">
+5
+</td>
+<td>
+abadan01
+</td>
+<td align="right">
+1972
+</td>
+<td align="right">
+8
+</td>
+<td align="right">
+25
+</td>
+<td>
+USA
+</td>
+</tr>
+</table>
+</section><section id="kable" class="slide level2">
+<h1>kable</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">kable</span>(Master)</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">playerID</th>
+<th style="text-align: right;">birthYear</th>
+<th style="text-align: right;">birthMonth</th>
+<th style="text-align: right;">birthDay</th>
+<th style="text-align: left;">birthCountry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">aardsda01</td>
+<td style="text-align: right;">1981</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">aaronha01</td>
+<td style="text-align: right;">1934</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">aaronto01</td>
+<td style="text-align: right;">1939</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">aasedo01</td>
+<td style="text-align: right;">1954</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">abadan01</td>
+<td style="text-align: right;">1972</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">USA</td>
+</tr>
+</tbody>
+</table>
+</section><section id="pander" class="slide level2">
+<h1>pander</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pander::<span class="kw">pandoc.table</span>(Master)</code></pre></div>
+<table style="width:86%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 18%" />
+<col style="width: 15%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">playerID</th>
+<th style="text-align: center;">birthYear</th>
+<th style="text-align: center;">birthMonth</th>
+<th style="text-align: center;">birthDay</th>
+<th style="text-align: center;">birthCountry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">aardsda01</td>
+<td style="text-align: center;">1981</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">aaronha01</td>
+<td style="text-align: center;">1934</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">aaronto01</td>
+<td style="text-align: center;">1939</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">USA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">aasedo01</td>
+<td style="text-align: center;">1954</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">USA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">abadan01</td>
+<td style="text-align: center;">1972</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">USA</td>
+</tr>
+</tbody>
+</table>
+</section><section id="dt" class="slide level2">
+<h1>DT</h1>
+<div id="htmlwidget-fdd4235ee64d9b0325d6" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fdd4235ee64d9b0325d6">{"x":{"filter":"none","data":[["1","2","3","4","5"],["aardsda01","aaronha01","aaronto01","aasedo01","abadan01"],[1981,1934,1939,1954,1972],[12,2,8,9,8],[27,5,5,8,25],["USA","USA","USA","USA","USA"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>playerID<\/th>\n      <th>birthYear<\/th>\n      <th>birthMonth<\/th>\n      <th>birthDay<\/th>\n      <th>birthCountry<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</section><section id="tables-1" class="slide level2">
+<h1>Tables</h1>
+<p>Of these options, I tend to use <code>pander</code> most often.</p>
+<ul>
+<li>Possible to allow the table to break across pages</li>
+<li>Easy to control where breaks happen</li>
+<li>Easy to align columns</li>
+</ul>
+<p>DT is super awesome for easy data search. Loads of bells and whistles on the package site: <a href="https://rstudio.github.io/DT/" class="uri">https://rstudio.github.io/DT/</a>.</p>
+<p>Note that this discussion of tables has <em>nothing</em> to do with neat tabular output from functions like <code>lm</code>. For that, check out <a href="https://cran.r-project.org/web/packages/stargazer/index.html"><code>stargazer</code></a></p>
+</section><section id="jekyll" class="slide level2">
+<h1>Jekyll</h1>
+<ul>
+<li><a href="http://jekyllrb.com/" class="uri">http://jekyllrb.com/</a></li>
+<li>Converts markdown into static HTML</li>
+<li>Great for blogging and simple page design</li>
+<li>Default engine for GitHub pages</li>
+<li>Liquid templating system</li>
+<li>See also: StaticDocs - <a href="https://github.com/hadley/staticdocs" class="uri">https://github.com/hadley/staticdocs</a></li>
+</ul>
+</section><section id="customized-templates" class="slide level2">
+<h1>Customized templates</h1>
+<ul>
+<li>Possible to roll your own template</li>
+<li>Pandoc template:
+<ul>
+<li>Uses a templating framework wherein field delimited by <code>$</code> are replaced with YAML metadata, or command-line arguments</li>
+<li><a href="http://pandoc.org/demo/example9/templates.html" class="uri">http://pandoc.org/demo/example9/templates.html</a></li>
+</ul></li>
+<li>RStudio will recognize “skeletons” in the dialog box for a new RMarkdown document</li>
+<li><a href="http://rmarkdown.rstudio.com/developer_document_templates.html" class="uri">http://rmarkdown.rstudio.com/developer_document_templates.html</a></li>
+</ul>
+</section><section id="some-cool-pre-made-templates" class="slide level2">
+<h1>Some cool pre-made templates</h1>
+<p><img src="images/NewRMarkdown.png" alt="alt text" /></p>
+</section><section id="customized-template-examples" class="slide level2">
+<h1>Customized template examples</h1>
+<ul>
+<li><a href="https://github.com/rstudio/rticles">JStatSoft</a></li>
+<li><a href="http://rmarkdown.rstudio.com/tufte_handout_format.html">Tufte template</a></li>
+<li><a href="https://github.com/jjallaire/revealjs">Reveal.js</a></li>
+</ul>
+</section><section id="two-more-references" class="slide level2">
+<h1>Two more references</h1>
+<ul>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf</a></li>
+</ul>
+</section><section id="exercise" class="slide level2">
+<h1>Exercise</h1>
+<p>Create a short vignette for the “momentus”&quot; package. It must do the following:</p>
+<ul>
+<li>Show code examples</li>
+<li>Include at least one plot output</li>
+<li>Include at least one table</li>
+</ul>
+<p>Extra credit:</p>
+<ul>
+<li>Use the <a href="http://hadley.github.io/pkgdown/">pkgdown package</a> to create a website documenting your package.</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="markdown_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="markdown_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'markdown_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+          { src: 'markdown_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

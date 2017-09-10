@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "---\ntitle: git\n---\n\n# What is it?\n\n## What is git?\n\n* Created by Linus Torvalds and others to support development of Linux\n* Tracks changes that you make to files\n* \n\n## Why use it?\n\n\n\n## How do I use it?\n\n```\ngit add\ngit commit -m \"A message\"\ngit push [remote] [branch]\n```\n\n# Exercise\n\n##\n\n* Stage everything in the R folder and commit\n* Now, stage everything in the man directory and commit\n* Look at the log of the commit history\n* Stage and commit everything else\n* If you've created an online account, set the remote repository and push your work to the cloud\n* Make some changes to a file and then commit those changes\n* Use the checkout command to recover an older copy of that file\n",
+    "created" : 1504812775575.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2960538271",
+    "id" : "13034564",
+    "lastKnownWriteTime" : 1504813498,
+    "last_content_update" : 1504813498866,
+    "path" : "~/projects/presentations/intermediate_r/slide_input/git.Rmd",
+    "project_path" : "slide_input/git.Rmd",
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

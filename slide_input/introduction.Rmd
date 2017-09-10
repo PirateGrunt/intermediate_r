@@ -1,0 +1,69 @@
+---
+title: Introduction
+author: "Brian A. Fannin"
+output:
+  revealjs::revealjs_presentation:
+    center: no
+    css: ./css/revealOpts.css
+    reveal_plugins:
+    - notes
+    - zoom
+    self_contained: no
+    theme: solarized
+    transition: slide
+---
+
+```{r echo=FALSE}
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(knitr))
+knitr::opts_chunk$set(
+    warning=FALSE
+  , error=FALSE
+  , echo=FALSE
+  , message=FALSE
+  , fig.height = 4.5
+  , fig.pos="t"
+  , collapse = TRUE
+)
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+```
+
+# Hello!
+
+## Answer one of these questions
+
+* What's your favorite pizza topping?
+* Who is your favorite 19th century president, other than Lincoln?
+* Where is your favorite place to take a vacation?
+
+## Our day: software not statistics
+
+By the end of the day you will
+
+* Write robust functions, capable of gracefully handling unexpected inputs
+* Create a package, which could be submitted to CRAN
+* Create tests to ensure that your code is much less likely to break
+* Understand how to use git to develop safely, collaboratively and with discipline
+* Use R and markdown to create documents which express complex statistical ideas in a way that's easy to understand
+* Create a web-based application which supports a rich, interactive user experience
+
+## Agenda
+
+```{r results='asis'}
+tblAgenda = tribble(
+  ~Start, ~End, ~What, ~`How Long`
+  , "9:00", "9:15", "Introductions", "15 min"
+  , "9:15", "10:15", "More fun with functions", "1 hour"
+  , "10:15", "10:30", "Packages 1 - getting started", "15 min"
+  , "10:30", "11:00", "AM break", "30 min"
+  , "11:00", "12:30", "Packages 2 - here we go", "90 min"
+  , "12:30", "1:30", "Lunch", "1 hour"
+  , "1:30", "2:15", "Get started with git", "45 min"
+  , "2:15", "3:00", "Markdown", "45 min"
+  , "3:00", "3:30", "PM break", "30 min"
+  , "3:30", "4:15", "Shiny", "45 min"
+  , "4:15", "5:00", "Padding", "45 min"
+)
+tblAgenda %>% kable()
+```
+

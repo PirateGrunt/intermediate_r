@@ -1,0 +1,356 @@
+---
+title: Functions
+author: "Brian A. Fannin"
+output:
+  revealjs::revealjs_presentation:
+    center: no
+    css: ./css/revealOpts.css
+    reveal_plugins:
+    - notes
+    - zoom
+    self_contained: no
+    theme: solarized
+    transition: slide
+---
+
+```{r echo=FALSE}
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(knitr))
+knitr::opts_chunk$set(
+    warning=TRUE
+  , error=TRUE
+  , echo=TRUE
+  , message=FALSE
+  , fig.height = 4.5
+  , fig.pos="t"
+  , collapse = TRUE
+)
+knitr::opts_knit$set(root.dir = normalizePath('../'))
+```
+
+# Yeah, functions
+
+## Why is this amazing?
+
+```{r eval=FALSE}
+some_var <- sqrt(pi) + 5
+some_function <- function(x) {
+  sqrt(x) + 5
+}
+some_function(pi)
+```
+
+## Here's what's amazing
+
+1. Functions are __objects__
+2. Functions can return any value
+3. 1 and 2 mean that functions can return other functions
+4. Functions are (usually) __vectorized__
+4. Functions may be altered after they're created
+
+# What is a function made of?
+
+## A simple function
+
+```{r}
+layer <- function(loss, attachment, limit, share){
+  pmin(limit, pmax(0, loss - attachment))
+}
+```
+
+## The elements of a function
+
+1. arguments
+2. body
+3. environment
+
+# Parameters
+
+## Parameters
+
+```{r}
+formals(layer)
+```
+
+Note that it _doesn't_ tell you what data types they are. R is not strongly typed.
+
+## Matching arguments
+
+1. Fully named arguments
+2. Partial matching
+3. Position
+
+## Matching arguments
+
+```{r}
+myFunc <- function(mojo, monkey, banana){
+  print(match.call())
+}
+
+myFunc(mojo = 1, mo = 2, 3)
+myFunc(mo = 2, mojo = 1, 3)
+myFunc(mo = 1, mo = 2, 3)
+myFunc(1, 2, 3)
+```
+
+## Default values
+
+```{r}
+myFunc <- function(a, b = 15){
+  a + b
+}
+myFunc(3)
+```
+
+I didn't supply a value for the `b` argument, so we just used the default.
+
+## Check inputs
+
+You can use the `missing()` function for this.
+
+```{r}
+myFunc <- function(mojo, monkey, banana){
+  if (missing(banana)) {
+    warning("I can't think without bananas")
+    banana = monkey + 5
+  }
+}
+myFunc(1, 2, 3)
+myFunc(1, 2)
+```
+
+## Aside
+
+* `stop()`: This is an error. The program can't go on.
+* `warning()` - This tells the user that something happened and they might not like it, but it's not a critical issue.
+* `message()` - Just sayin' something you might want to hear.
+
+## Missing and defaults
+
+```{r}
+myFunc <- function(mojo, monkey, banana = 3){
+  if (missing(banana)) {
+    warning("I can't think without bananas")
+    print(banana)
+  }
+}
+myFunc(1, 2, 3)
+myFunc(1, 2)
+```
+
+## Restrict inputs to set choice
+
+```{r}
+myFunc <- function(x, dist = c("lognormal", "gamma")){
+  dist = match.arg(dist)
+  print(dist)
+}
+myFunc(1:10, "lo")
+myFunc(1:10, "jo")
+
+myOtherFunc <- function(x, dist = c("lognormal", "gamma")){
+  print(dist)
+}
+myOtherFunc(1:10, "lo")
+myOtherFunc(1:10, "jo")
+```
+
+## Defaults and missing arguments
+
+* If you _must_ know what the user intends, _or_ if the default requires some logic, don't add a default.
+* If you're fine with common default parameters (i.e. the base of the log function is e or 10), add a default.
+* Don't add a default and check for a missing value. It's confusing and unnecessary.
+
+## Triple dot
+
+`...` is used to pass unspecified arguments to other functions. Typically used if your function sits between the user and some other function like `plot`
+
+```{r, echo=TRUE}
+dfData <- data.frame(PolicyYear = 2001:2010, Premium = rnorm(10))
+myPlotFunc <- function(dfData, ...){
+  plot(dfData$PolicyYear, dfData$Premium, ...)
+}
+```
+```{r eval=FALSE}
+myPlotFunc(dfData, pch=18)
+myPlotFunc(dfData, pch=23)
+```
+
+```{r}
+formals(myPlotFunc)
+```
+
+# Return value
+
+## What does a function return?
+
+Anything.
+
+## return()
+
+* `return()` isn't required. 
+* A function will always return the last evaluated expression.
+* `return()` is often used for _abnormal_ returns
+
+```{r}
+myFunc <- function(x){
+  if (is.na(x)) return("Value missing")
+  
+  sum(x)
+}
+```
+
+## Create a list of functions.
+
+```{r}
+lstMeans <- list(arithmetic = mean, median = median)
+nums <- 1:10
+lstMeans[['arithmetic']](nums)
+which_mean <- 'median'
+lstMeans[[which_mean]](nums)
+lapply(lstMeans, function(x) x(nums))
+```
+
+## What's a closure?
+
+A closure is a function which contains data.
+
+```{r}
+my_rnorm <- function(mean, sd){
+  function(N){
+    rnorm(N, mean, sd)
+  }
+}
+an_rnorm <- my_rnorm(mean = 10, sd = 3)
+```
+
+```{r }
+set.seed(1234)
+my_norms <- an_rnorm(100)
+set.seed(1234)
+base_norms <- rnorm(100, 10, 3)
+identical(my_norms, base_norms)
+```
+
+## Where did the data go?
+
+It's in the enclosing environment of the function.
+
+```{r}
+an_rnorm <- my_rnorm(mean = 10, sd = 3)
+another_rnorm <- my_rnorm(mean = -30, sd = 100)
+ls(environment(an_rnorm))
+
+func_data <- ls(environment(an_rnorm))
+lapply(func_data, get, environment(an_rnorm))
+
+as.list(environment(an_rnorm))
+as.list(environment(another_rnorm))
+```
+
+## Exercise
+
+* $\mu=log(E[X])-\sigma^2$
+* $\sigma^2=ln(1+cv^2)$
+
+Create a function called LognormalParams, which will translate the mean and either the CV or standard deviation or variance into parameters for the lognormal distribution. Test it using the following statements:
+
+```{r eval=FALSE}
+LognormalParams(10e3, 3.0)
+LognormalParams(c(10e3, 20e3), 3.0)
+LognormalParams(c(10e3, 20e3), "three")
+LognormalParams(10e3)
+LognormalParams(CV = 4, 10e3)
+```
+
+## Another exercise
+
+## Solution
+
+```{r}
+LognormalParams <- function(mean, CV){
+  
+}
+```
+
+# If we have time
+
+## Replacement functions
+
+(These examples are virtually identical to the ones in Hadley's "Advanced R")
+
+```{r}
+`mojo<-` <- function(x, value){
+  x <- x + value
+} 
+gonzo <- 1:10
+gonzo
+mojo(gonzo) <- 5
+gonzo
+```
+
+## Replacement functions (2)
+
+```{r}
+`mojo<-` <- function(x, position, value){
+  x[position] <- x[position] + value
+  x
+} 
+gonzo <- rep(1, 10)
+gonzo
+mojo(gonzo, 2) <- 5
+gonzo
+mojo(gonzo, 2:3) <- 5
+gonzo
+```
+
+## Infix functions
+
+```{r}
+`%l^%` <- function(a, b){
+  log(sqrt(a +b))
+}
+5 %l^% 3
+log(sqrt(5+3))
+```
+
+# NSE
+
+## NSE
+
+I really don't want to talk about this
+
+##
+
+1. `parse()` will convert text into an expression.
+2. `eval()` will evaluate an expression. 
+3. `deparse()` will convert an expression back into text (but not really).
+
+##
+
+```{r }
+my_str <- "1 + 1"
+my_expr <- parse(text = my_str)
+my_expr
+class(my_expr)
+```
+
+## Deparse is crazy
+
+```{r }
+my_other_str <- deparse(my_expr, width = 500)
+my_other_str
+
+my_other_str <- as.character(my_expr)
+my_other_str
+as.character(attr(my_expr, "wholeSrcref"))
+my_other_str
+```
+
+## eval
+
+```{r }
+eval(parse(text = my_expr))
+my_expr <- "1 + 2"
+eval(parse(text = my_expr))
+```
